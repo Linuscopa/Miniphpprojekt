@@ -58,14 +58,14 @@ $messages = load_messages();
     <p>
       <label>
         Name:
-        <input name="name" required minlength="2" value="<?php /* TODO: echo e($oldName) */ ?>">
+        <input name="name" required minlength="2" value="<?php echo e($oldName); ?>">
       </label>
     </p>
 
     <p>
       <label>
         Message:<br>
-        <textarea name="message" required minlength="5" rows="4" cols="50"><?php /* TODO: echo e($oldMsg) */ ?></textarea>
+        <textarea name="message" required minlength="5" rows="4" cols="50"><?php echo e($oldMsg); ?></textarea>
       </label>
     </p>
 
@@ -83,11 +83,11 @@ $messages = load_messages();
   <?php foreach ($messages as $m): ?>
     <div>
       <p>
-        <strong><?php /* TODO: echo e($m['name']) */ ?></strong>
-        <small><?php /* TODO: echo date(...) */ ?></small>
+        <strong><?php echo e($m['name']); ?></strong>
+        <small><?php echo date('Y-m-d H:i:s', $m['ts']); ?></small>
       </p>
 
-      <p><?php /* TODO: echo nl2br(e($m['message'])) */ ?></p>
+      <p><?php echo nl2br(e($m['message'])); ?></p>
       <hr>
     </div>
   <?php endforeach; ?>
