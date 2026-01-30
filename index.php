@@ -24,13 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (strlen($msg) < 5) {
         $errors[] = 'Message must be at least 5 characters.';
     }
-
-    // if ok -> add_message + redirect
-    if (empty($errors)) {
-        add_message($name, $msg);
-        header('Location: index.php');
-        exit;
-    }
 }
 
 $messages = []; // TODO: load_messages()
