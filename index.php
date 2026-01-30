@@ -9,19 +9,21 @@ $oldMsg  = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    // TODO: read input
-    $name = ''; // $_POST['name']
-    $msg  = ''; // $_POST['message']
+    // read input
+    $name = $_POST['name'] ?? '';
+    $msg  = $_POST['message'] ?? '';
 
-    // TODO: keep old values
-    // $oldName = ...
-    // $oldMsg  = ...
+    // keep old values
+    $oldName = $name;
+    $oldMsg  = $msg;
 
-    // TODO: validate (name >= 2, message >= 5)
-    // $errors[] = '...';
-
-    // TODO: if ok -> add_message + redirect
-
+    // validate (name >= 2, message >= 5)
+    if (strlen($name) < 2) {
+        $errors[] = 'Name must be at least 2 characters.';
+    }
+    if (strlen($msg) < 5) {
+        $errors[] = 'Message must be at least 5 characters.';
+    }
 
  // TODO: load_messages()
     if (empty($errors)) {
@@ -30,7 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
       }
 }
+
 $messages = load_messages();
+
 ?>
 <!doctype html>
 <html lang="en">
