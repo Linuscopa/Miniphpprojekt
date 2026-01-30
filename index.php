@@ -21,9 +21,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // $errors[] = '...';
 
     // TODO: if ok -> add_message + redirect
-}
 
-$messages = []; // TODO: load_messages()
+
+ // TODO: load_messages()
+    if (empty($errors)) {
+            add_message($name, $msg);
+            header('Location: /');
+            exit;
+      }
+}
+$messages = load_messages();
 ?>
 <!doctype html>
 <html lang="en">
@@ -35,9 +42,11 @@ $messages = []; // TODO: load_messages()
 <body>
   <h1>Mini Guestbook</h1>
 
-  <?php if ($errors): ?>
+   <?php if ($errors): ?>
     <ul>
-      <?php /* TODO: print errors */ ?>
+      <?php foreach ($errors as $error): ?>
+        <li><?php echo e($error); ?></li>
+      <?php endforeach; ?>
     </ul>
   <?php endif; ?>
 
