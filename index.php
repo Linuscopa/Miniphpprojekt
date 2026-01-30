@@ -9,21 +9,32 @@ $oldMsg  = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    // TODO: read input
-    $name = ''; // $_POST['name']
-    $msg  = ''; // $_POST['message']
+    // read input
+    $name = $_POST['name'] ?? '';
+    $msg  = $_POST['message'] ?? '';
 
-    // TODO: keep old values
-    // $oldName = ...
-    // $oldMsg  = ...
+    // keep old values
+    $oldName = $name;
+    $oldMsg  = $msg;
 
-    // TODO: validate (name >= 2, message >= 5)
-    // $errors[] = '...';
+    // validate (name >= 2, message >= 5)
+    if (strlen($name) < 2) {
+        $errors[] = 'Name must be at least 2 characters.';
+    }
+    if (strlen($msg) < 5) {
+        $errors[] = 'Message must be at least 5 characters.';
+    }
 
-    // TODO: if ok -> add_message + redirect
+ // TODO: load_messages()
+    if (empty($errors)) {
+            add_message($name, $msg);
+            header('Location: /');
+            exit;
+      }
 }
 
-$messages = []; // TODO: load_messages()
+$messages = load_messages();
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -35,9 +46,11 @@ $messages = []; // TODO: load_messages()
 <body>
   <h1>Mini Guestbook</h1>
 
-  <?php if ($errors): ?>
+   <?php if ($errors): ?>
     <ul>
-      <?php /* TODO: print errors */ ?>
+      <?php foreach ($errors as $error): ?>
+        <li><?php echo e($error); ?></li>
+      <?php endforeach; ?>
     </ul>
   <?php endif; ?>
 
